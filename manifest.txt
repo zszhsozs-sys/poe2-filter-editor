@@ -1,10 +1,6 @@
-{
-  "runtimeVersion": "1.0.0",
-  "loaderVersion": "1.0.0",
-  "modules": {
-    "core": "update.js",
-    "data": "data.json",
-    "rules": "rules.json"
-  },
-  "notes": "PoE2 Filter Editor modular online update channel"
-}
+runtimeVersion=1.0.0
+loaderVersion=1.0.0
+core=update.txt
+data=data.txt
+rules=rules.cfg
+status=ready
