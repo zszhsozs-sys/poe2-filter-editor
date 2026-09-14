@@ -1,1 +1,6 @@
-
+POE2_FILTER_EDITOR_UPDATE_CHANNEL
+runtimeVersion=1.0.0
+manifest=update.json
+data=data.json
+rules=rules.json
+status=ready
