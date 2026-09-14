@@ -1,1 +1,4 @@
-{}
+POE2_FILTER_EDITOR_DATA
+schema=1
+version=1.0.0
+updated=2026-09-13
