@@ -1,0 +1,28 @@
+// POE2FE runtime 1.0.0
+(()=>{
+ const EDITOR='3.5', ENCODER='1.4.0';
+ window.POE2FE_ONLINE={editor:EDITOR,encoder:ENCODER,runtime:'1.0.0'};
+ document.title='PoE2 A方案过滤器编辑器 v'+EDITOR;
+ document.querySelectorAll('.pill').forEach(el=>{
+   if(/编码器\s*v/i.test(el.textContent||'')) el.textContent='编码器 v'+ENCODER;
+ });
+ const oldBtn=document.getElementById('encoderUpdate');
+ if(oldBtn){
+   const btn=oldBtn.cloneNode(true);
+   oldBtn.replaceWith(btn);
+   btn.textContent='在线更新：已启用';
+   btn.addEventListener('click',()=>{
+     const modal=document.getElementById('updaterModal');
+     const status=document.getElementById('updaterStatus');
+     const apply=document.getElementById('applyUpdate');
+     if(modal) modal.style.display='flex';
+     if(status) status.innerHTML='在线更新通道已启用。<br>编辑器 <b>v'+EDITOR+'</b> · 编码器 <b>v'+ENCODER+'</b><br>每次打开 Online Launcher 都会自动读取 GitHub 上最新的 runtime.txt。';
+     if(apply) apply.disabled=true;
+   });
+ }
+ const badge=document.createElement('div');
+ badge.id='poe2OnlineRuntimeBadge';
+ badge.textContent='Online Runtime '+EDITOR+' / '+ENCODER;
+ badge.style.cssText='position:fixed;right:10px;bottom:10px;z-index:99999;background:#171a1f;border:1px solid #3b424d;border-radius:7px;padding:5px 8px;color:#aeb7c4;font:11px system-ui;opacity:.9';
+ document.body.appendChild(badge);
+})();

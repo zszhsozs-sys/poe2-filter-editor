@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PoE2 Filter Editor Online Launcher</title>
+<style>body{font-family:system-ui,"Microsoft YaHei",sans-serif;background:#0d0f12;color:#edf1f7;display:grid;place-items:center;min-height:100vh;margin:0}.box{max-width:640px;padding:24px;border:1px solid #2b3038;border-radius:12px;background:#171a1f}.muted{color:#9aa4b1;font-size:13px}</style>
+</head>
+<body>
+<div class="box"><div id="s">正在加载 PoE2 Filter Editor…</div><div class="muted">Online shell · POE2FE-UPDATER-20260914-D</div></div>
+<script>
+(async()=>{
+ const ROOT='https://raw.githubusercontent.com/zszhsozs-sys/poe2-filter-editor/main/';
+ const status=document.getElementById('s');
+ try{
+   const stamp='?t='+Date.now();
+   const [baseRes,patchRes]=await Promise.all([
+     fetch(ROOT+'POE2_Filter_Editor.html'+stamp,{cache:'no-store'}),
+     fetch(ROOT+'runtime.txt'+stamp,{cache:'no-store'})
+   ]);
+   if(!baseRes.ok) throw new Error('主程序 HTTP '+baseRes.status);
+   if(!patchRes.ok) throw new Error('运行补丁 HTTP '+patchRes.status);
+   let html=await baseRes.text();
+   const patch=await patchRes.text();
+   const safePatch=patch.replace(/<\/script/gi,'<\\/script');
+   const injected='<script>window.POE2FE_ONLINE_SHELL=true;<\\/script><script>'+safePatch+'<\\/script>';
+   html=html.replace(/<\/body>/i,injected+'</body>');
+   document.open();
+   document.write(html);
+   document.close();
+ }catch(err){
+   status.innerHTML='加载失败：'+String(err.message||err)+'<br><br>请确认网络正常，并且 GitHub 上存在 runtime.txt。';
+ }
+})();
+</script>
+</body>
+</html>
